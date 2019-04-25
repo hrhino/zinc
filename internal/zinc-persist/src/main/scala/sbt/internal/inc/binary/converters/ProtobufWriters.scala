@@ -597,10 +597,8 @@ final class ProtobufWriters(mapper: WriteMapper) {
     import sbt.internal.util.Relation
 
     def toUsedName(usedName: UsedName): schema.UsedName = {
-      import scala.collection.JavaConverters._
       val name = usedName.name
-      val javaIterator = usedName.scopes.iterator()
-      val scopes = javaIterator.asScala.map(toUseScope).toList
+      val scopes = usedName.scopes.toSet.map(toUseScope).toList
       schema.UsedName(name = name, scopes = scopes)
     }
 
